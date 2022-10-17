@@ -3,6 +3,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { toast } from "react-toastify";
 
 export default function Post() {
   const [user, loading] = useAuthState(auth);
@@ -14,6 +15,23 @@ export default function Post() {
   // Submit Post
   const submitPost = async (e) => {
     e.preventDefault();
+
+    // Run checks for description
+    if (!post.description) {
+      toast.error("Description is required 😅", {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 1500
+      });
+      return;
+    }
+    if (post.description.length > 300) {
+      toast.error("Description too long 😵‍💫", {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 1500
+      });
+      return;
+    }
+
     // Make a new Post
     const collectionRef = collection(db, "posts");
     await addDoc(collectionRef, {
