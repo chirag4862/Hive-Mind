@@ -20,14 +20,14 @@ export default function Post() {
     if (!post.description) {
       toast.error("Description is required 😅", {
         position: toast.POSITION.TOP_CENTER,
-        autoClose: 1500
+        autoClose: 1500,
       });
       return;
     }
     if (post.description.length > 300) {
       toast.error("Description too long 😵‍💫", {
         position: toast.POSITION.TOP_CENTER,
-        autoClose: 1500
+        autoClose: 1500,
       });
       return;
     }
@@ -74,5 +74,3 @@ export default function Post() {
     </div>
   );
 }
-
-// 01:14:48
