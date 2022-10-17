@@ -2,8 +2,18 @@ import { auth, db } from "../utils/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { collection, onSnapshot, query, where } from "firebase/firestore";
+import {
+  collection,
+  deleteDoc,
+  doc,
+  onSnapshot,
+  query,
+  where,
+} from "firebase/firestore";
 import Message from "../components/message";
+import { BsTrash2Fill } from "react-icons/bs";
+import { AiFillEdit } from "react-icons/ai";
+import { async } from "@firebase/util";
 
 export default function Dashboard() {
   const [user, loading] = useAuthState(auth);
@@ -22,6 +32,12 @@ export default function Dashboard() {
     return unsubscribe;
   };
 
+  // Delete Post
+  const deletePost = async (id) => {
+    const docRef = doc(db, "posts", id);
+    await deleteDoc(docRef);
+  };
+
   // Get users data
   useEffect(() => {
     getData();
@@ -32,10 +48,31 @@ export default function Dashboard() {
       <h1>Your Posts</h1>
       <div>
         {posts.map((post) => {
-          return <Message {...post} key={post.id} />;
+          return (
+            <Message {...post} key={post.id}>
+              <div className="flex gap-4">
+                <button
+                  onClick={() => deletePost(post.id)}
+                  className="text-pink-600 flex items-center justify-center gap-2 py-2 text-sm"
+                >
+                  <BsTrash2Fill />
+                  Delete
+                </button>
+                <button className="text-teal-600 flex items-center justify-center gap-2 py-2 text-sm">
+                  <AiFillEdit />
+                  Edit
+                </button>
+              </div>
+            </Message>
+          );
         })}
       </div>
-      <button onClick={() => auth.signOut()}>Sign Out</button>
+      <button
+        className="font-medium text-white bg-stone-800 py-2 px-4 my-6 rounded-lg"
+        onClick={() => auth.signOut()}
+      >
+        Sign Out
+      </button>
     </div>
   );
 }
