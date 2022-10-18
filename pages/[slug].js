@@ -29,6 +29,13 @@ export default function Details() {
       });
       return;
     }
+    if (message.length > 100) {
+      toast.error("Comment too long 😵‍💫", {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 1500,
+      });
+      return;
+    }
 
     const docRef = doc(db, "posts", routerData.id);
     await updateDoc(docRef, {
@@ -74,6 +81,13 @@ export default function Details() {
             placeholder="Add a comment 🤓"
             className="bg-stone-800 w-full p-2 text-white text-sm rounded-l-lg"
           />
+          <p
+            className={`text-amber-600 font-thin text-xs p-2 bg-stone-800 ${
+              message.length > 100 ? "text-red-600" : ""
+            }`}
+          >
+            {message.length}/100
+          </p>
           <button
             onClick={submitMessage}
             className="bg-amber-500 text-white py-2 px-4 text-sm rounded-r-lg"
@@ -84,7 +98,7 @@ export default function Details() {
         <div className="py-6">
           <h2 className="font-bold">Comments</h2>
           {allMessage?.map((message) => (
-            <div className="p-4 my-4 border-2" key={message.time}>
+            <div className="p-4 my-4 border-2 comment" key={message.time}>
               <div className="flex items-center gap-2 mb-4">
                 <img className="w-10 rounded-full" src={message.avatar} />
                 <h2>{message.userName}</h2>
