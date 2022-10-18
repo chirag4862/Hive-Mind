@@ -1,5 +1,4 @@
 export default function Message({ children, avatar, username, description }) {
-  console.log("Received message");
   return (
     <div className="bg-white p-8 border-b-2 rounded-lg message my-2">
       <div className="flex items-center gap-2">
