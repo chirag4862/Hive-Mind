@@ -13,7 +13,7 @@ import {
 import Message from "../components/message";
 import { BsTrash2Fill } from "react-icons/bs";
 import { AiFillEdit } from "react-icons/ai";
-import { async } from "@firebase/util";
+import Link from "next/link";
 
 export default function Dashboard() {
   const [user, loading] = useAuthState(auth);
@@ -58,10 +58,12 @@ export default function Dashboard() {
                   <BsTrash2Fill />
                   Delete
                 </button>
-                <button className="text-teal-600 flex items-center justify-center gap-2 py-2 text-sm">
-                  <AiFillEdit />
-                  Edit
-                </button>
+                <Link href={{ pathname: "/post", query: post }}>
+                  <button className="text-teal-600 flex items-center justify-center gap-2 py-2 text-sm">
+                    <AiFillEdit />
+                    Edit
+                  </button>
+                </Link>
               </div>
             </Message>
           );
@@ -76,3 +78,5 @@ export default function Dashboard() {
     </div>
   );
 }
+
+// 01:52:30
