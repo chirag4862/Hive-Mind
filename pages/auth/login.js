@@ -8,13 +8,14 @@ import { useEffect } from "react";
 export default function Login() {
   const route = useRouter();
   const [user, loading] = useAuthState(auth);
-  
+
   // Sign in with Google
   const googleProvider = new GoogleAuthProvider();
   const GoogleLogin = async () => {
     try {
       const result = await signInWithPopup(auth, googleProvider);
       route.push("/");
+      console.log("You are inside Login function");
     } catch (error) {
       console.log("Error");
     }
@@ -27,6 +28,7 @@ export default function Login() {
     } else {
       console.log("Login");
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   return (

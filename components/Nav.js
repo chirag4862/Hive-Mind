@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
 import { auth } from "../utils/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -30,6 +31,7 @@ export default function Nav() {
               <img
                 src={user.photoURL}
                 className="w-12 rounded-full cursor-pointer"
+                alt=""
               ></img>
             </Link>
           </div>

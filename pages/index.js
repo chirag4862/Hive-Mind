@@ -31,7 +31,7 @@ export default function Home() {
       </Head>
 
       <div className="my-12 text-lg font-medium">
-        <h2>See What's the talk in the Hive</h2>
+        <h2>See What is the talk in the Hive</h2>
         {allPosts.map((post) => (
           <Message key={post.id} {...post}>
             <Link href={{ pathname: `/${post.id}`, query: { ...post } }}>
