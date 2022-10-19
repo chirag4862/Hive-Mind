@@ -15,7 +15,7 @@ export default function Login() {
     try {
       const result = await signInWithPopup(auth, googleProvider);
       route.push("/");
-      console.log("You are inside Login function");
+      // console.log("You are inside Login function");
     } catch (error) {
       console.log("Error");
     }
